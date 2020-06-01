@@ -179,3 +179,21 @@ func TestTranspose(t *testing.T) {
 		t.Fatalf("%s", error)
 	}
 }
+
+func TestTrace(t *testing.T) {
+	m1 := Matrix{[][]float64{
+		{-10, -9, -8},
+		{-5, -4, -3},
+		{1, 2, 3},
+	}}
+	correct := -11.0
+
+	trace, error := Trace(m1)
+	if error != nil {
+		t.Fatalf("%s", error)
+	}
+
+	if trace != correct {
+		t.Fatalf("Trace result incorrect")
+	}
+}

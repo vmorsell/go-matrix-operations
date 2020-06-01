@@ -97,3 +97,17 @@ func Transpose(m1 Matrix) Matrix {
 
 	return result
 }
+
+func Trace(m1 Matrix) (float64, error) {
+	if m1.rows() != m1.cols() {
+		return 0, errors.New("Trace is only defined for nxn square matrices")
+	}
+
+	trace := 0.0
+
+	for i := 0; i < m1.rows(); i++ {
+		trace += m1.values[i][i]
+	}
+
+	return trace, nil
+}
