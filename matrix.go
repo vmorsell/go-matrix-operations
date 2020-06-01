@@ -85,3 +85,15 @@ func MultiplyMatrix(m1 Matrix, m2 Matrix) (Matrix, error) {
 
 	return result, nil
 }
+
+func Transpose(m1 Matrix) Matrix {
+	result := createEmptyMatrix(m1.cols(), m1.rows())
+
+	for i, row := range m1.values {
+		for j, value := range row {
+			result.values[j][i] = value
+		}
+	}
+
+	return result
+}

@@ -160,3 +160,22 @@ func TestMultiplyMatrix(t *testing.T) {
 		t.Fatalf("%s", error)
 	}
 }
+
+func TestTranspose(t *testing.T) {
+	m1 := Matrix{[][]float64{
+		{1, 2, 3},
+		{4, 5, 6},
+	}}
+	correct := Matrix{[][]float64{
+		{1, 4},
+		{2, 5},
+		{3, 6},
+	}}
+
+	m1 = Transpose(m1)
+
+	error := equals(m1, correct)
+	if error != nil {
+		t.Fatalf("%s", error)
+	}
+}
