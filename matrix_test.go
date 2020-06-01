@@ -26,6 +26,21 @@ func equals(m1 Matrix, m2 Matrix) error {
 	return nil
 }
 
+func TestDimensions(t *testing.T) {
+	m1 := Matrix{[][]float64{
+		{0, 0, 0, 0},
+		{0, 0, 0, 0},
+	}}
+
+	if m1.rows() != 2 {
+		t.Fatalf("Rows dimension method returned %d, expected %d", m1.rows(), 2)
+	}
+
+	if m1.cols() != 4 {
+		t.Fatalf("Cols dimension method returned %d, expected %d", m1.cols(), 4)
+	}
+}
+
 func TestAddScalar(t *testing.T) {
 	m1 := Matrix{[][]float64{
 		{-10, -5, 0, 5},
