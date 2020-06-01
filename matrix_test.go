@@ -83,3 +83,53 @@ func TestMultiplyScalar(t *testing.T) {
 		t.Fatalf("%s", error)
 	}
 }
+
+func TestAddMatrix(t *testing.T) {
+	m1 := Matrix{[][]float64{
+		[]float64{-10, -5, 0, 5},
+		[]float64{-5, 0, 5, 10},
+	}}
+	m2 := Matrix{[][]float64{
+		[]float64{-5, 0, 5, 10},
+		[]float64{-10, -5, 0, 5},
+	}}
+	correct := Matrix{[][]float64{
+		[]float64{-15, -5, 5, 15},
+		[]float64{-15, -5, 5, 15},
+	}}
+
+	m1, error := AddMatrix(m1, m2)
+	if error != nil {
+		t.Fatalf("%s", error)
+	}
+
+	error = equals(m1, correct)
+	if error != nil {
+		t.Fatalf("%s", error)
+	}
+}
+
+func TestSubtractMatrix(t *testing.T) {
+	m1 := Matrix{[][]float64{
+		[]float64{-10, -5, 0, 5},
+		[]float64{-5, 0, 5, 10},
+	}}
+	m2 := Matrix{[][]float64{
+		[]float64{-5, 0, 5, 10},
+		[]float64{-10, -5, 0, 5},
+	}}
+	correct := Matrix{[][]float64{
+		[]float64{-5, -5, -5, -5},
+		[]float64{5, 5, 5, 5},
+	}}
+
+	m1, error := SubtractMatrix(m1, m2)
+	if error != nil {
+		t.Fatalf("%s", error)
+	}
+
+	error = equals(m1, correct)
+	if error != nil {
+		t.Fatalf("%s", error)
+	}
+}
