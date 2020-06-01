@@ -133,3 +133,30 @@ func TestSubtractMatrix(t *testing.T) {
 		t.Fatalf("%s", error)
 	}
 }
+
+func TestMultiplyMatrix(t *testing.T) {
+	m1 := Matrix{[][]float64{
+		{-10, -5},
+		{-5, 0},
+		{0, 5},
+	}}
+	m2 := Matrix{[][]float64{
+		{-5, 0, 5, 10, 15},
+		{5, 10, 15, 20, 25},
+	}}
+	correct := Matrix{[][]float64{
+		{25, -50, -125, -200, -275},
+		{25, 0, -25, -50, -75},
+		{25, 50, 75, 100, 125},
+	}}
+
+	m1, error := MultiplyMatrix(m1, m2)
+	if error != nil {
+		t.Fatalf("%s", error)
+	}
+
+	error = equals(m1, correct)
+	if error != nil {
+		t.Fatalf("%s", error)
+	}
+}
