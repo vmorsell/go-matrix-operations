@@ -13,9 +13,6 @@ func (m1 Matrix) rows() int {
 func (m1 Matrix) cols() int {
 	return len(m1.values[0])
 }
-		}
-		result.Values = append(result.Values, values)
-	}
 
 func AddScalar(m1 Matrix, scalar float64) Matrix {
 	for i, row := range m1.values {
