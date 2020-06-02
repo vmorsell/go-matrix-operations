@@ -21,6 +21,12 @@ func (v1 Vector) equals(v2 Vector) error {
 	return nil
 }
 
+func vectorInOtherVectorSpace(v1 Vector) Vector {
+	tooManyComponents := make([]float64, len(v1.components)+1)
+
+	return Vector{tooManyComponents}
+}
+
 func TestVectorMagnitude(t *testing.T) {
 	v1 := Vector{[]float64{-3, 0, 5, 7}}
 	correct := math.Sqrt(83)
@@ -39,7 +45,7 @@ func TestVectorNormalize(t *testing.T) {
 
 	error := v1.equals(correct)
 	if error != nil {
-		t.Fatalf("Unexpected result. %s", error)
+		t.Fatalf("Unexpected error. %s", error)
 	}
 }
 
@@ -52,7 +58,7 @@ func TestVectorAddVector(t *testing.T) {
 
 	error := v1.equals(correct)
 	if error != nil {
-		t.Fatalf("Unexpected result. %s", error)
+		t.Fatalf("Unexpected error. %s", error)
 	}
 }
 
@@ -65,7 +71,7 @@ func TestVectorSubtractVector(t *testing.T) {
 
 	error := v1.equals(correct)
 	if error != nil {
-		t.Fatalf("Unexpected result. %s", error)
+		t.Fatalf("Unexpected error. %s", error)
 	}
 }
 
@@ -78,7 +84,7 @@ func TestVectorMultiplyScalar(t *testing.T) {
 
 	error := v1.equals(correct)
 	if error != nil {
-		t.Fatalf("Unexpected result. %s", error)
+		t.Fatalf("Unexpected error. %s", error)
 	}
 }
 
@@ -86,12 +92,9 @@ func TestVectorDotProduct(t *testing.T) {
 	v1 := Vector{[]float64{-3, 0, 5, 7}}
 	v2 := Vector{[]float64{9, 0, -15, -21}}
 
-	dotProduct, error := v1.DotProduct(Vector{[]float64{1, 2, 3}})
-	if dotProduct != 0 || error == nil {
-		t.Fatalf("Unexpected return. Got %f, expected %d", dotProduct, 0)
-	}
+	dotProduct, error := v1.DotProduct(vectorInOtherVectorSpace(v1))
 	if error == nil {
-		t.Fatalf("Got unexpected error.")
+		t.Fatalf("Expected error. Number of components doesn't match")
 	}
 
 	dotProduct, error = v1.DotProduct(v2)
@@ -99,6 +102,6 @@ func TestVectorDotProduct(t *testing.T) {
 		t.Fatalf("Unexpected return. Expected %d, got %f", -249, dotProduct)
 	}
 	if error != nil {
-		t.Fatalf("Expected error.")
+		t.Fatalf("Unexpected error.")
 	}
 }
