@@ -57,7 +57,7 @@ func TestMatrixAddScalar(t *testing.T) {
 	error := m1.equals(correct)
 
 	if error != nil {
-		t.Fatalf("Unexpected return. %s", error)
+		t.Fatalf("Unexpected error. %s", error)
 	}
 }
 
@@ -76,7 +76,7 @@ func TestMatrixSubtractScalar(t *testing.T) {
 
 	error := m1.equals(correct)
 	if error != nil {
-		t.Fatalf("Unexpected return. %s", error)
+		t.Fatalf("Unexpected error. %s", error)
 	}
 }
 
@@ -95,7 +95,7 @@ func TestMatrixMultiplyScalar(t *testing.T) {
 
 	error := m1.equals(correct)
 	if error != nil {
-		t.Fatalf("Unexpected return. %s", error)
+		t.Fatalf("Unexpected error. %s", error)
 	}
 }
 
@@ -115,12 +115,12 @@ func TestMatrixAddMatrix(t *testing.T) {
 
 	error := m1.AddMatrix(m2)
 	if error != nil {
-		t.Fatalf("Failed. %s", error)
+		t.Fatalf("Unexpected error. %s", error)
 	}
 
 	error = m1.equals(correct)
 	if error != nil {
-		t.Fatalf("Unexpected return. %s", error)
+		t.Fatalf("Unexpected error. %s", error)
 	}
 }
 
@@ -140,12 +140,12 @@ func TestMatrixSubtractMatrix(t *testing.T) {
 
 	error := m1.SubtractMatrix(m2)
 	if error != nil {
-		t.Fatalf("Failed. %s", error)
+		t.Fatalf("Unexpected error. %s", error)
 	}
 
 	error = m1.equals(correct)
 	if error != nil {
-		t.Fatalf("Unexpected return. %s", error)
+		t.Fatalf("Unexpected error. %s", error)
 	}
 }
 
@@ -167,12 +167,12 @@ func TestMatrixMultiplyMatrix(t *testing.T) {
 
 	m3, error := m1.MultiplyMatrix(m2)
 	if error != nil {
-		t.Fatalf("Failed. %s", error)
+		t.Fatalf("Unexpected error. %s", error)
 	}
 
 	error = m3.equals(correct)
 	if error != nil {
-		t.Fatalf("Unexpected return. %s", error)
+		t.Fatalf("Unexpected error. %s", error)
 	}
 }
 
@@ -191,7 +191,7 @@ func TestMatrixTranspose(t *testing.T) {
 
 	error := m2.equals(correct)
 	if error != nil {
-		t.Fatalf("Unexpected return. %s", error)
+		t.Fatalf("Unexpected error. %s", error)
 	}
 }
 
@@ -205,7 +205,7 @@ func TestMatrixTrace(t *testing.T) {
 
 	trace, error := m1.Trace()
 	if error != nil {
-		t.Fatalf("Failed. %s", error)
+		t.Fatalf("Unexpected error. %s", error)
 	}
 
 	if trace != correct {
