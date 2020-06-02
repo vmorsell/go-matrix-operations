@@ -56,3 +56,18 @@ func (v1 Vector) DotProduct(v2 Vector) (float64, error) {
 
 	return result, nil
 }
+
+func (v1 Vector) Distance(v2 Vector) (float64, error) {
+	if len(v1.components) != len(v2.components) {
+		return 0, errors.New(fmt.Sprintf("Number of components doesn't match. v1 has %d, v2 has %d", len(v1.components), len(v2.components)))
+	}
+
+	squaredComponentDistances := 0.0
+	for i := range v1.components {
+		squaredComponentDistances += math.Pow(v2.components[i]-v1.components[i], 2)
+	}
+
+	distance := math.Sqrt(squaredComponentDistances)
+
+	return distance, nil
+}

@@ -105,3 +105,22 @@ func TestVectorDotProduct(t *testing.T) {
 		t.Fatalf("Unexpected error.")
 	}
 }
+
+func TestVectorDistance(t *testing.T) {
+	v1 := Vector{[]float64{-3, 0, 5, 7}}
+	v2 := Vector{[]float64{9, 0, -15, -21}}
+	correct := 4 * math.Sqrt(83)
+
+	_, error := v1.Distance(vectorInOtherVectorSpace(v1))
+	if error == nil {
+		t.Fatalf("Expected error. Number of components doesn't match")
+	}
+
+	distance, error := v1.Distance(v2)
+	if error != nil {
+		t.Fatalf("Unexpected error. %s", error)
+	}
+	if distance != correct {
+		t.Fatalf("Unexpected return. Got %f, expected %f", distance, correct)
+	}
+}
