@@ -32,12 +32,12 @@ func TestDimensions(t *testing.T) {
 		{0, 0, 0, 0},
 	}}
 
-	if m1.rows() != 2 {
-		t.Fatalf("Unexpected return. Rows dimension method returned %d, expected %d.", m1.rows(), 2)
+	if m1.dim().rows != 2 {
+		t.Fatalf("Unexpected return. Rows dimension method returned %d, expected %d.", m1.dim().rows, 2)
 	}
 
-	if m1.cols() != 4 {
-		t.Fatalf("Unexpected return. Cols dimension method returned %d, expected %d.", m1.cols(), 4)
+	if m1.dim().cols != 4 {
+		t.Fatalf("Unexpected return. Cols dimension method returned %d, expected %d.", m1.dim().cols, 4)
 	}
 }
 
