@@ -113,7 +113,17 @@ func TestMatrixAddMatrix(t *testing.T) {
 		{-15, -5, 5, 15},
 	}}
 
-	error := m1.AddMatrix(m2)
+	error := m1.AddMatrix(Matrix{[][]float64{{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}})
+	if error == nil {
+		t.Fatalf("Expected error. Row dimension error")
+	}
+
+	error = m1.AddMatrix(Matrix{[][]float64{{0, 0, 0}, {0, 0, 0}}})
+	if error == nil {
+		t.Fatalf("Expected error. Column dimension error")
+	}
+
+	error = m1.AddMatrix(m2)
 	if error != nil {
 		t.Fatalf("Unexpected error. %s", error)
 	}
@@ -138,7 +148,17 @@ func TestMatrixSubtractMatrix(t *testing.T) {
 		{5, 5, 5, 5},
 	}}
 
-	error := m1.SubtractMatrix(m2)
+	error := m1.AddMatrix(Matrix{[][]float64{{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}})
+	if error == nil {
+		t.Fatalf("Expected error. Row dimension error")
+	}
+
+	error = m1.AddMatrix(Matrix{[][]float64{{0, 0, 0}, {0, 0, 0}}})
+	if error == nil {
+		t.Fatalf("Expected error. Column dimension error")
+	}
+
+	error = m1.SubtractMatrix(m2)
 	if error != nil {
 		t.Fatalf("Unexpected error. %s", error)
 	}
@@ -165,7 +185,12 @@ func TestMatrixMultiplyMatrix(t *testing.T) {
 		{25, 50, 75, 100, 125},
 	}}
 
-	m3, error := m1.MultiplyMatrix(m2)
+	m3, error := m1.MultiplyMatrix(Matrix{[][]float64{{0}, {0}, {0}}})
+	if error == nil {
+		t.Fatalf("Expected error. Dimension error")
+	}
+
+	m3, error = m1.MultiplyMatrix(m2)
 	if error != nil {
 		t.Fatalf("Unexpected error. %s", error)
 	}
@@ -201,9 +226,18 @@ func TestMatrixTrace(t *testing.T) {
 		{-5, -4, -3},
 		{1, 2, 3},
 	}}
+	m2 := Matrix{[][]float64{
+		{1, 1, 1},
+		{1, 1, 1},
+	}}
 	correct := -11.0
 
-	trace, error := m1.Trace()
+	trace, error := m2.Trace()
+	if error == nil {
+		t.Fatalf("Expected error. Dimension error, not a square matrix")
+	}
+
+	trace, error = m1.Trace()
 	if error != nil {
 		t.Fatalf("Unexpected error. %s", error)
 	}
