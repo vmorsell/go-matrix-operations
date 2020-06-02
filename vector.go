@@ -1,6 +1,10 @@
 package matrix
 
-import "math"
+import (
+	"errors"
+	"fmt"
+	"math"
+)
 
 type Vector struct {
 	components []float64
@@ -38,4 +42,17 @@ func (v1 *Vector) MultiplyScalar(scalar float64) {
 	for i := range v1.components {
 		v1.components[i] *= scalar
 	}
+}
+
+func (v1 Vector) DotProduct(v2 Vector) (float64, error) {
+	if len(v1.components) != len(v2.components) {
+		return 0, errors.New(fmt.Sprintf("Number of components doesn't match. v1 has %d, v2 has %d", len(v1.components), len(v2.components)))
+	}
+
+	result := 0.0
+	for i := range v1.components {
+		result += v1.components[i] * v2.components[i]
+	}
+
+	return result, nil
 }

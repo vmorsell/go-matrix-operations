@@ -81,3 +81,24 @@ func TestVectorMultiplyScalar(t *testing.T) {
 		t.Fatalf("Unexpected result. %s", error)
 	}
 }
+
+func TestVectorDotProduct(t *testing.T) {
+	v1 := Vector{[]float64{-3, 0, 5, 7}}
+	v2 := Vector{[]float64{9, 0, -15, -21}}
+
+	dotProduct, error := v1.DotProduct(Vector{[]float64{1, 2, 3}})
+	if dotProduct != 0 || error == nil {
+		t.Fatalf("Unexpected return. Got %f, expected %d", dotProduct, 0)
+	}
+	if error == nil {
+		t.Fatalf("Got unexpected error.")
+	}
+
+	dotProduct, error = v1.DotProduct(v2)
+	if dotProduct != -249 {
+		t.Fatalf("Unexpected return. Expected %d, got %f", -249, dotProduct)
+	}
+	if error != nil {
+		t.Fatalf("Expected error.")
+	}
+}
