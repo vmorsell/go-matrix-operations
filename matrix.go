@@ -26,33 +26,29 @@ func createEmptyMatrix(rows int, cols int) Matrix {
 	return Matrix{values}
 }
 
-func AddScalar(m1 Matrix, scalar float64) Matrix {
+func (m1 *Matrix) AddScalar(scalar float64) {
 	for i, row := range m1.values {
 		for j, _ := range row {
 			m1.values[i][j] += scalar
 		}
 	}
-
-	return m1
 }
 
-func SubtractScalar(m1 Matrix, scalar float64) Matrix {
-	return AddScalar(m1, -scalar)
+func (m1 *Matrix) SubtractScalar(scalar float64) {
+	m1.AddScalar(-scalar)
 }
 
-func MultiplyScalar(m1 Matrix, scalar float64) Matrix {
+func (m1 *Matrix) MultiplyScalar(scalar float64) {
 	for i, row := range m1.values {
 		for j, _ := range row {
 			m1.values[i][j] *= scalar
 		}
 	}
-
-	return m1
 }
 
-func AddMatrix(m1 Matrix, m2 Matrix) (Matrix, error) {
+func (m1 *Matrix) AddMatrix(m2 Matrix) error {
 	if m1.rows() != m2.rows() || m1.cols() != m2.cols() {
-		return Matrix{}, errors.New("Dimensions doesn't match")
+		return errors.New("Dimensions doesn't match")
 	}
 
 	for i, row := range m1.values {
@@ -61,14 +57,15 @@ func AddMatrix(m1 Matrix, m2 Matrix) (Matrix, error) {
 		}
 	}
 
-	return m1, nil
+	return nil
 }
 
-func SubtractMatrix(m1 Matrix, m2 Matrix) (Matrix, error) {
-	return AddMatrix(m1, MultiplyScalar(m2, -1))
+func (m1 *Matrix) SubtractMatrix(m2 Matrix) error {
+	m2.MultiplyScalar(-1)
+	return m1.AddMatrix(m2)
 }
 
-func MultiplyMatrix(m1 Matrix, m2 Matrix) (Matrix, error) {
+func (m1 Matrix) MultiplyMatrix(m2 Matrix) (Matrix, error) {
 	if m1.cols() != m2.rows() {
 		return Matrix{}, errors.New("Dimension error")
 	}
@@ -86,7 +83,7 @@ func MultiplyMatrix(m1 Matrix, m2 Matrix) (Matrix, error) {
 	return result, nil
 }
 
-func Transpose(m1 Matrix) Matrix {
+func (m1 Matrix) Transpose() Matrix {
 	result := createEmptyMatrix(m1.cols(), m1.rows())
 
 	for i, row := range m1.values {
@@ -98,7 +95,7 @@ func Transpose(m1 Matrix) Matrix {
 	return result
 }
 
-func Trace(m1 Matrix) (float64, error) {
+func (m1 Matrix) Trace() (float64, error) {
 	if m1.rows() != m1.cols() {
 		return 0, errors.New("Trace is only defined for nxn square matrices")
 	}

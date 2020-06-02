@@ -52,7 +52,7 @@ func TestAddScalar(t *testing.T) {
 		{-3.5, 1.5, 6.5, 11.5},
 	}}
 
-	m1 = AddScalar(m1, scalar)
+	m1.AddScalar(scalar)
 
 	error := equals(m1, correct)
 
@@ -72,7 +72,7 @@ func TestSubtractScalar(t *testing.T) {
 		{-6.5, -1.5, 3.5, 8.5},
 	}}
 
-	m1 = SubtractScalar(m1, scalar)
+	m1.SubtractScalar(scalar)
 
 	error := equals(m1, correct)
 	if error != nil {
@@ -91,7 +91,7 @@ func TestMultiplyScalar(t *testing.T) {
 		{-7.5, 0, 7.5, 15},
 	}}
 
-	m1 = MultiplyScalar(m1, scalar)
+	m1.MultiplyScalar(scalar)
 
 	error := equals(m1, correct)
 	if error != nil {
@@ -113,7 +113,7 @@ func TestAddMatrix(t *testing.T) {
 		{-15, -5, 5, 15},
 	}}
 
-	m1, error := AddMatrix(m1, m2)
+	error := m1.AddMatrix(m2)
 	if error != nil {
 		t.Fatalf("Failed. %s", error)
 	}
@@ -138,7 +138,7 @@ func TestSubtractMatrix(t *testing.T) {
 		{5, 5, 5, 5},
 	}}
 
-	m1, error := SubtractMatrix(m1, m2)
+	error := m1.SubtractMatrix(m2)
 	if error != nil {
 		t.Fatalf("Failed. %s", error)
 	}
@@ -165,12 +165,12 @@ func TestMultiplyMatrix(t *testing.T) {
 		{25, 50, 75, 100, 125},
 	}}
 
-	m1, error := MultiplyMatrix(m1, m2)
+	m3, error := m1.MultiplyMatrix(m2)
 	if error != nil {
 		t.Fatalf("Failed. %s", error)
 	}
 
-	error = equals(m1, correct)
+	error = equals(m3, correct)
 	if error != nil {
 		t.Fatalf("Unexpected return. %s", error)
 	}
@@ -187,9 +187,9 @@ func TestTranspose(t *testing.T) {
 		{3, 6},
 	}}
 
-	m1 = Transpose(m1)
+	m2 := m1.Transpose()
 
-	error := equals(m1, correct)
+	error := equals(m2, correct)
 	if error != nil {
 		t.Fatalf("Unexpected return. %s", error)
 	}
@@ -203,7 +203,7 @@ func TestTrace(t *testing.T) {
 	}}
 	correct := -11.0
 
-	trace, error := Trace(m1)
+	trace, error := m1.Trace()
 	if error != nil {
 		t.Fatalf("Failed. %s", error)
 	}
