@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func equals(m1 Matrix, m2 Matrix) error {
+func (m1 Matrix) equals(m2 Matrix) error {
 	if len(m1.values) != len(m2.values) {
 		return errors.New(fmt.Sprintf("Non-matching row dimensions. m1 has %d, m2 has %d.", len(m1.values), len(m2.values)))
 	}
@@ -26,7 +26,7 @@ func equals(m1 Matrix, m2 Matrix) error {
 	return nil
 }
 
-func TestDimensions(t *testing.T) {
+func TestMatrixDimensions(t *testing.T) {
 	m1 := Matrix{[][]float64{
 		{0, 0, 0, 0},
 		{0, 0, 0, 0},
@@ -41,7 +41,7 @@ func TestDimensions(t *testing.T) {
 	}
 }
 
-func TestAddScalar(t *testing.T) {
+func TestMatrixAddScalar(t *testing.T) {
 	m1 := Matrix{[][]float64{
 		{-10, -5, 0, 5},
 		{-5, 0, 5, 10},
@@ -54,14 +54,14 @@ func TestAddScalar(t *testing.T) {
 
 	m1.AddScalar(scalar)
 
-	error := equals(m1, correct)
+	error := m1.equals(correct)
 
 	if error != nil {
 		t.Fatalf("Unexpected return. %s", error)
 	}
 }
 
-func TestSubtractScalar(t *testing.T) {
+func TestMatrixSubtractScalar(t *testing.T) {
 	m1 := Matrix{[][]float64{
 		{-10, -5, 0, 5},
 		{-5, 0, 5, 10},
@@ -74,13 +74,13 @@ func TestSubtractScalar(t *testing.T) {
 
 	m1.SubtractScalar(scalar)
 
-	error := equals(m1, correct)
+	error := m1.equals(correct)
 	if error != nil {
 		t.Fatalf("Unexpected return. %s", error)
 	}
 }
 
-func TestMultiplyScalar(t *testing.T) {
+func TestMatrixMultiplyScalar(t *testing.T) {
 	m1 := Matrix{[][]float64{
 		{-10, -5, 0, 5},
 		{-5, 0, 5, 10},
@@ -93,13 +93,13 @@ func TestMultiplyScalar(t *testing.T) {
 
 	m1.MultiplyScalar(scalar)
 
-	error := equals(m1, correct)
+	error := m1.equals(correct)
 	if error != nil {
 		t.Fatalf("Unexpected return. %s", error)
 	}
 }
 
-func TestAddMatrix(t *testing.T) {
+func TestMatrixAddMatrix(t *testing.T) {
 	m1 := Matrix{[][]float64{
 		{-10, -5, 0, 5},
 		{-5, 0, 5, 10},
@@ -118,13 +118,13 @@ func TestAddMatrix(t *testing.T) {
 		t.Fatalf("Failed. %s", error)
 	}
 
-	error = equals(m1, correct)
+	error = m1.equals(correct)
 	if error != nil {
 		t.Fatalf("Unexpected return. %s", error)
 	}
 }
 
-func TestSubtractMatrix(t *testing.T) {
+func TestMatrixSubtractMatrix(t *testing.T) {
 	m1 := Matrix{[][]float64{
 		{-10, -5, 0, 5},
 		{-5, 0, 5, 10},
@@ -143,13 +143,13 @@ func TestSubtractMatrix(t *testing.T) {
 		t.Fatalf("Failed. %s", error)
 	}
 
-	error = equals(m1, correct)
+	error = m1.equals(correct)
 	if error != nil {
 		t.Fatalf("Unexpected return. %s", error)
 	}
 }
 
-func TestMultiplyMatrix(t *testing.T) {
+func TestMatrixMultiplyMatrix(t *testing.T) {
 	m1 := Matrix{[][]float64{
 		{-10, -5},
 		{-5, 0},
@@ -170,13 +170,13 @@ func TestMultiplyMatrix(t *testing.T) {
 		t.Fatalf("Failed. %s", error)
 	}
 
-	error = equals(m3, correct)
+	error = m3.equals(correct)
 	if error != nil {
 		t.Fatalf("Unexpected return. %s", error)
 	}
 }
 
-func TestTranspose(t *testing.T) {
+func TestMatrixTranspose(t *testing.T) {
 	m1 := Matrix{[][]float64{
 		{1, 2, 3},
 		{4, 5, 6},
@@ -189,13 +189,13 @@ func TestTranspose(t *testing.T) {
 
 	m2 := m1.Transpose()
 
-	error := equals(m2, correct)
+	error := m2.equals(correct)
 	if error != nil {
 		t.Fatalf("Unexpected return. %s", error)
 	}
 }
 
-func TestTrace(t *testing.T) {
+func TestMatrixTrace(t *testing.T) {
 	m1 := Matrix{[][]float64{
 		{-10, -9, -8},
 		{-5, -4, -3},
